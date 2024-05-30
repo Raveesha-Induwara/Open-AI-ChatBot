@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "App.ts",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\" ",
-    "build": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/App.js\" ",
+    "build": "tsc",
+    "start": "node dist/App.js"
   },
   "keywords": [],
   "author": "",
