@@ -3,8 +3,9 @@ import red from "@mui/material/colors/red";
 import { useAuth } from "../context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { useRef, useState } from "react";
-import { sendChatRequest } from "../helpers/api-communicator";
+import { useLayoutEffect, useRef, useState } from "react";
+import { fetchAllChats, sendChatRequest } from "../helpers/api-communicator";
+import toast from "react-hot-toast";
 
 type Message = { role: string; content: string };
 
@@ -12,6 +13,22 @@ const Chat = () => {
   const auth = useAuth();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
+
+  // Fetch all chats on page load
+  useLayoutEffect(() => {
+    if (auth?.isLoggedIn && auth?.user) {
+      toast.loading("Loading Chats", { id: "load-chats" });
+      fetchAllChats()
+        .then((data) => {
+          setChatMessages(data.chats);
+          toast.loading("Successfully loaded chats", { id: "load-chats" });
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("Unable to load chats", { id: "load-chats" });
+        });
+    }
+  }, [auth]);
 
   const handleSubmit = async () => {
     const content = inputRef.current?.value as string;

@@ -26,3 +26,12 @@ export const sendChatRequest = async (message: string) => {
   const data = await res.data;
   return data;
 };
+
+export const fetchAllChats = async () => {
+  const res = await axios.get("/chat/all-chats");
+  if(res.status !== 200) {
+    throw new Error("Unable to fetch chats from server");
+  }
+  const data = await res.data;
+  return data;
+};

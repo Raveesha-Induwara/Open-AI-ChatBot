@@ -22,7 +22,7 @@ export const generateChatCompletion = async (
       role,
       content,
     })) as ChatCompletionRequestMessage[];
-    
+
     // Add the new message to the chat history
     chats.push({ role: "user", content: message });
     user.chats.push({ role: "user", content: message });
@@ -36,13 +36,30 @@ export const generateChatCompletion = async (
       model: "gpt-3.5-turbo",
       messages: chats,
     });
-    
+
     // save the response to the user's chat history
     user.chats.push(chatResponse.data.choices[0].message);
     await user.save();
     return res.status(200).json({ chats: user.chats });
   } catch (err) {
-    console.log(err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export const fetchAllChats = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res
+        .status(401)
+        .json({ error: "User not registered or token malfunctioned" });
+    }
+    return res.status(200).json({ message: "OK", chats: user.chats });
+  } catch (err) {
     return res.status(500).json({ error: "Something went wrong" });
   }
 };
