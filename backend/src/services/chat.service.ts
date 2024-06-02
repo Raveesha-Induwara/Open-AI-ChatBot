@@ -16,11 +16,14 @@ export const generateChatCompletion = async (
         .status(401)
         .json({ error: "User not registered or token malfunctioned" });
     }
-    // grab the user's chat history
+
+    // grab the user's chat history from DB
     const chats = user.chats.map(({ role, content }) => ({
       role,
       content,
     })) as ChatCompletionRequestMessage[];
+    
+    // Add the new message to the chat history
     chats.push({ role: "user", content: message });
     user.chats.push({ role: "user", content: message });
 
@@ -33,6 +36,8 @@ export const generateChatCompletion = async (
       model: "gpt-3.5-turbo",
       messages: chats,
     });
+    
+    // save the response to the user's chat history
     user.chats.push(chatResponse.data.choices[0].message);
     await user.save();
     return res.status(200).json({ chats: user.chats });
