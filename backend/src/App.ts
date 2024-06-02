@@ -10,11 +10,11 @@ config({ path: ".env.local" });
 const app = express();
 
 // middlewares
-app.use(cors({origin: "http://localhost:5173", credentials: true}));
 app.use(express.json())
+app.use(morgan("dev")); // remove it in production
+app.use(cors({origin: "http://localhost:5173", credentials: true}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use("/api/v1", appRouter);
-app.use(morgan("dev")); // remove it in production
 
 // connection and listeners
 const PORT = process.env.PORT || 5000;
