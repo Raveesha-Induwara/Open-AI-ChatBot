@@ -1,5 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { checkAuthStatus, loginUser } from "../helpers/api-communicator";
+import {
+  checkAuthStatus,
+  loginUser,
+  logoutUser,
+} from "../helpers/api-communicator";
 
 type User = {
   name: string;
@@ -15,6 +19,7 @@ type UserAuth = {
 };
 
 const AuthContext = createContext<UserAuth | null>(null);
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -23,8 +28,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // fetch if users cookies are still valid then skip login
     async function checkStatus() {
       const data = await checkAuthStatus();
-      if(data){
-        setUser({email: data.email, name: data.name});
+      if (data) {
+        setUser({ email: data.email, name: data.name });
         setIsLoggedIn(true);
       }
     }
@@ -34,8 +39,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (email: string, password: string) => {
     // fetch to login
     const data = await loginUser(email, password);
-    if(data){
-      setUser({email: data.email, name: data.name});
+    if (data) {
+      setUser({ email: data.email, name: data.name });
       setIsLoggedIn(true);
     }
   };
@@ -45,7 +50,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = async () => {
-    // fetch to logout
+    await logoutUser();
+    setIsLoggedIn(false);
+    setUser(null);
+    window.location.reload();
   };
 
   const value = {
