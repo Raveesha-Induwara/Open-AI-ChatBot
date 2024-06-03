@@ -34,7 +34,7 @@ const ChatItem = ({ content, role }: { content: string; role: string }) => {
   const auth = useAuth();
 
   return role === "assistant" ? (
-    <Box sx={{ display: "flex", p: 2, bgcolor: "#004d5612", gap: 2, my: 2 }}>
+    <Box sx={{ display: "flex", p: 2, bgcolor: "#004d5612", gap: 2, my: 1, borderRadius: 2 }}>
       <Avatar>
         <img src="openai.png" alt="openai" width={"30px"} />
       </Avatar>
@@ -56,7 +56,7 @@ const ChatItem = ({ content, role }: { content: string; role: string }) => {
       </Box>
     </Box>
   ) : (
-    <Box sx={{ display: "flex", p: 2, bgcolor: "#004d56", gap: 2, mb: 1 }}>
+    <Box sx={{ display: "flex", p: 2, bgcolor: "#004d56", gap: 2, mb: 1, borderRadius: 2 }}>
       <Avatar
         sx={{
           ml: 0,
@@ -65,7 +65,7 @@ const ChatItem = ({ content, role }: { content: string; role: string }) => {
         }}
       >
         {auth?.user?.name[0]}
-        {auth?.user?.name.split("")[1][0].toUpperCase()}
+        {auth?.user?.name.split(" ")[1][0].toUpperCase()}
       </Avatar>
       {/* Message Container */}
       <Box>

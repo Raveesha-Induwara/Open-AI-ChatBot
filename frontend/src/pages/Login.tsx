@@ -22,10 +22,12 @@ const Login = () => {
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
     try {
       toast.loading("Logging in...", { id: "login" });
       await auth?.login(email, password);
       toast.success("Logged in successfully", { id: "login" });
+      navigate("/chat");
     } catch (error) {
       console.error(error);
       toast.error("Login failed", { id: "login" });

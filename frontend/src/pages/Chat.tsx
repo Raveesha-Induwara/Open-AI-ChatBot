@@ -110,7 +110,7 @@ const Chat = () => {
             }}
           >
             {auth?.user?.name[0]}
-            {auth?.user?.name.split("")[1][0].toUpperCase()}
+            {auth?.user?.name.split(" ")[1][0].toUpperCase()}
           </Avatar>
           <Typography sx={{ mx: "auto", fontFamily: "work sans" }}>
             You are taking to a ChatBOT
