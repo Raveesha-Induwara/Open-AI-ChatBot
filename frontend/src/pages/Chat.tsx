@@ -3,20 +3,29 @@ import red from "@mui/material/colors/red";
 import { useAuth } from "../context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   deleteChats,
   fetchAllChats,
   sendChatRequest,
 } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type Message = { role: string; content: string };
 
 const Chat = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
+
+  // If user is not logged in, redirect to login page
+  useEffect(() => {
+    if (!auth?.user) {
+      return () => navigate("/login");
+    }
+  }, [auth, navigate]);
 
   // Fetch all chats on page load
   useLayoutEffect(() => {
