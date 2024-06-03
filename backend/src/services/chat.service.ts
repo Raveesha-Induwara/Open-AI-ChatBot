@@ -52,13 +52,44 @@ export const fetchAllChats = async (
   next: NextFunction
 ) => {
   try {
+    // Check if user is logged in
     const user = await User.findById(res.locals.jwtData.id);
     if (!user) {
       return res
         .status(401)
         .json({ error: "User not registered or token malfunctioned" });
     }
+    // Check if user is the same as the token
+    if (user._id.toString() !== res.locals.jwtData.id) {
+      return res.status(401).json({ message: "Permission didn't match" });
+    }
     return res.status(200).json({ message: "OK", chats: user.chats });
+  } catch (err) {
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export const deleteChats = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Check if user is logged in
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res
+        .status(401)
+        .json({ error: "User not registered or token malfunctioned" });
+    }
+    // Check if user is the same as the token
+    if (user._id.toString() !== res.locals.jwtData.id) {
+      return res.status(401).json({ message: "Permission didn't match" });
+    }
+    // @ts-ignore
+    user.chats = [];
+    await user.save();
+    return res.status(200).json({ message: "Delete chat history" });
   } catch (err) {
     return res.status(500).json({ error: "Something went wrong" });
   }
