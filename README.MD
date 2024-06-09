@@ -1,8 +1,27 @@
 
-# MERN Stack AI Chatbot
+# OpenAI Chatbot 🤖
 
-This is an AI Chatbot application, inspired by ChatGPT, by using MERN Stack and OpenAI
+This is a customized AI Chatbot MERN Stack application based on ChatGPT. It uses MERN Stack and OpenAI gpt-3.5-turbo model for implementation and also the application allows storing, retrieving, and deleting user messages from a database. It's a secure application using JWT Tokens, HTTP-Only Cookies, Signed Cookies, Password Encryption, and Middleware Chains.
 
-It's a customized chatbot where each message of the user is stored in DB and can be retrieved and deleted.
+### 💻 Technologies <hr/>
 
-It's a completely secure application using JWT Tokens, HTTP-Only Cookies, Signed Cookies, Password Encryption, and Middleware Chains.
+- Modern React app with Vite ⚡ <br/>
+- Express.js 🚀 <br/>
+- Node.js 🌳 <br/>
+- MongoDB 🌿<br/>
+- TypeScript ⌨️ <br/>
+- Material UI 🖌️ <br/>
+
+### 🔑 Key Feature <hr/>
+
+- A full stack ChatGPT-like clone
+- Create user authentication and authorization system using JWT authorization tokens, and HTTP-only cookies
+- Implementing express-validators middleware to validate data
+- Protecting user routes with verification checks
+- Creating beautiful chat UI with the Material UI library with a completely responsive design
+- Integrating OpenAI gpt-3.5 model with Node, Express MERN stack app [Learn more](https://platform.openai.com/docs/overview)
+- Storing user's chats in MongoDB
+- Storing user sessions
+<br/><br/>
+
+By the end of this project, I gained an understanding of developing advanced, secure, and production-ready SaaS applications using the MERN stack.
