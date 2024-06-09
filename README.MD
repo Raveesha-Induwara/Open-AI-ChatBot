@@ -3,7 +3,7 @@
 
 This is a customized AI Chatbot MERN Stack application based on ChatGPT. It uses MERN Stack and OpenAI gpt-3.5-turbo model for implementation and also the application allows storing, retrieving, and deleting user messages from a database. It's a secure application using JWT Tokens, HTTP-Only Cookies, Signed Cookies, Password Encryption, and Middleware Chains.
 
-### 💻 Technologies <hr/>
+### 💻 Technologies
 
 - Modern React app with Vite ⚡ <br/>
 - Express.js 🚀 <br/>
@@ -12,7 +12,7 @@ This is a customized AI Chatbot MERN Stack application based on ChatGPT. It uses
 - TypeScript ⌨️ <br/>
 - Material UI 🖌️ <br/>
 
-### 🔑 Key Feature <hr/>
+### 🔑 Key Feature
 
 - A full stack ChatGPT-like clone
 - Create user authentication and authorization system using JWT authorization tokens, and HTTP-only cookies
